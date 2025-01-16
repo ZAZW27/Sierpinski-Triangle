@@ -35,11 +35,9 @@ def update(frame):
     xDot = float((prevDot[0] + x[pickCorner]) / 2)
     yDot = float((prevDot[1] + y[pickCorner]) / 2)
 
-    # Update the x and y data
     x_data.append(xDot)
     y_data.append(yDot)
 
-    # Update the plot with the new data
     dots.set_data(x_data, y_data)
 
     prevDot = [xDot, yDot]
