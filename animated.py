@@ -14,28 +14,23 @@ ax.set_xlabel('x label')
 ax.set_ylabel('y label')
 ax.set_title("Coba")
 
-# Grid settings
-gridGap = 1
+gridGap = 10
 ax.set_xticks(range(-50, 60, gridGap))
 ax.set_yticks(range(-30, 80, gridGap))
 ax.grid(False)
 
-# Initial point
 prevDot = [initDot[0], initDot[1]]
 assignedData = [prevDot]
 
-# Create a scatter plot for dynamic updates
 dots, = ax.plot([], [], 'o', markersize=2, color='black', alpha=0.5)
 
-# Create the triangle outline
 ax.plot(x, y, color='black', label='Sierpinski triangle')
 
-# Store x and y data in lists that we will update during each frame
 x_data = []
 y_data = []
-
+countDot = 1
 def update(frame):
-    global prevDot
+    global prevDot, countDot
     pickCorner = random.randint(0, 2)
     xDot = float((prevDot[0] + x[pickCorner]) / 2)
     yDot = float((prevDot[1] + y[pickCorner]) / 2)
@@ -49,11 +44,12 @@ def update(frame):
 
     prevDot = [xDot, yDot]
     assignedData.append(prevDot)
+    
+    print(f"dot: {countDot}")
+    countDot = countDot + 1
 
-    return dots,  # Return the object to be updated by FuncAnimation
+    return dots,  
 
-# Animate the plot
 ani = FuncAnimation(fig, update, frames=10000000, interval=1, blit=True)
 
-# Show the plot
 plt.show()
